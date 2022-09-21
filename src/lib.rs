@@ -33,7 +33,7 @@ fn reverse_rotate_index(i: u8, amt: u8) -> u8 {
     (a - n * (a / n).floor()) as u8
 }
 
-fn enc(key: String, val: String) -> String {
+fn enc(key: &str, val: &str) -> String {
     let key_vec = key.chars().collect::<Vec<char>>();
     let key_length = key_vec.len();
 
@@ -65,7 +65,7 @@ fn enc(key: String, val: String) -> String {
     return_val
 }
 
-fn dec(key: String, val: String) -> String {
+fn dec(key: &str, val: &str) -> String {
     let key_vec = key.chars().collect::<Vec<char>>();
     let key_length = key_vec.len();
     let alpha_index = val.chars().map(|c| to_alpha_index(&c));
@@ -105,23 +105,23 @@ mod tests {
 
     #[test]
     fn test_enc() {
-        let cipher_key = String::from("DUH");
-        let plain_text = String::from("CRYPTO");
-        assert_eq!("FLFSNV", enc(cipher_key, plain_text));
+        let cipher_key = "DUH";
+        let plain_text = "CRYPTO";
+        assert_eq!("FLFSNV", enc(&cipher_key, &plain_text));
 
-        let cipher_key = String::from("DUH");
-        let plain_text = String::from("THEYDRINKTHETEA");
-        assert_eq!("WBLBXYLHRWBLWYH", enc(cipher_key, plain_text));
+        let cipher_key = "DUH";
+        let plain_text = "THEYDRINKTHETEA";
+        assert_eq!("WBLBXYLHRWBLWYH", enc(&cipher_key, &plain_text));
     }
 
     #[test]
     fn test_dec() {
-        let cipher_key = String::from("DUH");
-        let plain_text = String::from("FLFSNV");
-        assert_eq!("CRYPTO", dec(cipher_key, plain_text));
+        let cipher_key = "DUH";
+        let plain_text = "FLFSNV";
+        assert_eq!("CRYPTO", dec(&cipher_key, &plain_text));
 
-        let cipher_key = String::from("DUH");
-        let plain_text = String::from("WBLBXYLHRWBLWYH");
-        assert_eq!("THEYDRINKTHETEA", dec(cipher_key, plain_text));
+        let cipher_key = "DUH";
+        let plain_text = "WBLBXYLHRWBLWYH";
+        assert_eq!("THEYDRINKTHETEA", dec(&cipher_key, &plain_text));
     }
 }
